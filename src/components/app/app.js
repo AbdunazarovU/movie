@@ -3,6 +3,7 @@ import "./app.css"
 import AppInfo from "../app-info/app-info"
 import SearchPanel from "../search-panel/search-panel"
 import AppFilter from "../app-filter/app-filter"
+import MovieList from "../movie-list/movie-list"
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <SearchPanel />
           <AppFilter />
         </div>
+        <MovieList/>
       </div>
     </div>
   )
