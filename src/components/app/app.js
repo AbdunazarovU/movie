@@ -8,9 +8,9 @@ import MoviesAddForm from "../movies-add-form/movies-add-form"
 
 const App = () => {
   const data = [
-    {name: "Empire of osman", viewers: 811, favourite: false},
-    {name: "Ertugrul", viewers: 890, favourite: true},
-    {name: "Omar", viewers: 999, favourite: false},
+    {id: 1, name: "Empire of osman", viewers: 811, favourite: false},
+    {id: 2, name: "Ertugrul", viewers: 890, favourite: true},
+    {id: 3, name: "Omar", viewers: 999, favourite: false},
   ]
 
   return (
