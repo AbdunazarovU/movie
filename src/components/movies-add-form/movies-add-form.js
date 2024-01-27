@@ -5,7 +5,7 @@ class MoviesAddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "+998-(90)-",
+      name: "",
       viewers: ""
     };
   }
