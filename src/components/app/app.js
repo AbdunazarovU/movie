@@ -8,17 +8,30 @@ import MoviesAddForm from "../movies-add-form/movies-add-form"
 import { Component } from "react"
 
 class App extends Component {
-  data = [
-    {id: 1, name: "Empire of osman", viewers: 811, favourite: false},
-    {id: 2, name: "Ertugrul", viewers: 890, favourite: true},
-    {id: 3, name: "Omar", viewers: 999, favourite: false},
-  ]
+  constructor(props) {
+    super(props)
+    this.state = {
+      data: [
+        {id: 1, name: "Empire of osman", viewers: 811, favourite: false},
+        {id: 2, name: "Ertugrul", viewers: 890, favourite: true},
+        {id: 3, name: "Omar", viewers: 999, favourite: false},
+    ]}
+  }
+
 
   onDelete = id => {
-    console.log(id)
+    this.setState(({data}) => {
+      const newArr = data.filter(c => c.id !== id)
+
+      return {
+        data: newArr,
+      }
+    })
   }
 
   render() {
+    const {data} = this.state
+
     return (
       <div className="app font-monospace">
         <div className="content">
@@ -27,7 +40,7 @@ class App extends Component {
             <SearchPanel />
             <AppFilter />
           </div>
-          <MovieList data={this.data} onDelete={this.onDelete} />
+          <MovieList data={data} onDelete={this.onDelete} />
           <MoviesAddForm />
         </div>
       </div>
