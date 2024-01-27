@@ -6,6 +6,7 @@ import SearchPanel from "../search-panel/search-panel";
 import AppFilter from "../app-filter/app-filter";
 import MovieList from "../movie-list/movie-list";
 import MoviesAddForm from "../movies-add-form/movies-add-form";
+import { v4 as uuidv4 } from 'uuid';
 
 class App extends Component {
   constructor(props) {
@@ -24,8 +25,9 @@ class App extends Component {
   };
 
   addForm = element => {
+    const newElement = { name: element.name, viewers: element.viewers, id: uuidv4() }
     this.setState(({data}) => ({
-      data: [...data, element],
+      data: [...data, newElement],
     }))
   }
 
