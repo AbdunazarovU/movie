@@ -13,9 +13,9 @@ class App extends Component {
     super(props);
     this.state = {
       data: [
-        { id: 1, name: "Empire of osman", viewers: 811, favourite: false },
-        { id: 2, name: "Ertugrul", viewers: 890, favourite: true },
-        { id: 3, name: "Omar", viewers: 999, favourite: false }
+        { id: 1, name: "Empire of osman", viewers: 811, favourite: false, like: false },
+        { id: 2, name: "Ertugrul", viewers: 890, favourite: true, like: false },
+        { id: 3, name: "Omar", viewers: 999, favourite: false, like: false }
       ]
     };
   }
@@ -25,7 +25,7 @@ class App extends Component {
   };
 
   addForm = element => {
-    const newElement = { name: element.name, viewers: element.viewers, id: uuidv4() }
+    const newElement = { id: uuidv4(), name: element.name, viewers: element.viewers, favourite: false, like: false }
     this.setState(({data}) => ({
       data: [...data, newElement],
     }))
