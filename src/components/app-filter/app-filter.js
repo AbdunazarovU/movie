@@ -1,13 +1,19 @@
 import "./app-filter.css"
 
-const AppFilter = () => {
+const AppFilter = ({updateFilterHandler, filter}) => {
   return (
     <div className="btn-group">
-      <button type="button" className="btn btn-dark">Barcha kinolar</button>
-      <button type="button" className="btn btn-outline-dark">Mashhur kinolar</button>
-      <button type="button" className="btn btn-outline-dark">Eng ko'p ko'rilgan kinolar</button>
+      {btnArr.map(e => (
+        <button className={`btn ${filter === e.name ? "btn-dark" : "btn-outline-dark"}`}   key={e.name} type="button" onClick={() => updateFilterHandler(e.name)} >{e.label}</button>
+      ))}
     </div>
   )
 }
+
+const btnArr = [
+  {name: "all", label: "Barcha kinolar"},
+  {name: "popular", label: "Mashhur kinolar"},
+  {name: "mostViewers", label: "Eng ko'p ko'rilgan kinolar"},
+]
 
 export default AppFilter
