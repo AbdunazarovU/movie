@@ -14,6 +14,7 @@ const MoviesAddForm = ({addForm}) => {
 
   const addFormHandler = (e) => {
     e.preventDefault()
+    if(state.name === "" || state.viewers === "") return
     addForm({name: state.name, viewers: state.viewers })
     setState({
       name: "",
