@@ -1,6 +1,6 @@
 import "./app.css";
 
-import { Component } from "react";
+import { useState } from "react";
 import AppInfo from "../app-info/app-info";
 import SearchPanel from "../search-panel/search-panel";
 import AppFilter from "../app-filter/app-filter";
@@ -8,53 +8,41 @@ import MovieList from "../movie-list/movie-list";
 import MoviesAddForm from "../movies-add-form/movies-add-form";
 import { v4 as uuidv4 } from 'uuid';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [
-        { id: 1, name: "Empire of osman", viewers: 811, favourite: false, like: false },
-        { id: 2, name: "Ertugrul", viewers: 890, favourite: false, like: false },
-        { id: 3, name: "Omar", viewers: 999, favourite: false, like: false }
-      ],
-      term: "",
-      filter: "all",
-    };
+
+const App = () => {
+  const [data, setData] = useState(dataList)
+  const [term, setTerm] = useState("")
+  const [filter, setFilter] = useState("all")
+
+  const onDelete = id => {
+    const newArr = data.filter(e => e.id !== id)
+    setData(newArr)
   }
 
-  onDelete = id => {
-    this.setState(({ data }) => ({ data: data.filter(c => c.id !== id) }));
-  };
-
-  addForm = element => {
+  const addForm = element => {
     const newElement = { id: uuidv4(), name: element.name, viewers: element.viewers, favourite: false, like: false }
-    this.setState(({ data }) => ({
-      data: [...data, newElement],
-    }))
+    const newData = [...data, newElement]
+    setData(newData)
   }
 
-  onToggleProp = (id, prop) => {
-    this.setState(({ data }) => ({
-      data: data.map(item => {
-        if (item.id === id) {
-          return { ...item, [prop]: !item[prop] }
-        }
-        return item
-      }),
-    }))
+  const onToggleProp = (id, prop) => {
+    const newArr = data.map(item => {
+      if (item.id === id) {
+        return { ...item, [prop]: !item[prop] }
+      }
+      return item
+    })
+    setData(newArr)
   }
 
-  searchHandler = (arr, term) => {
-    if(term.length === 0) {
+  const searchHandler = (arr, term) => {
+    if(term === 0){
       return arr
     }
     return arr.filter(e => e.name.toLowerCase().indexOf(term.toLowerCase()) > -1)
   }
-  updateTermHandler = (term) => {
-    this.setState({term})
-  }
 
-  filterHandler = (arr, filter) => {
+  const filterHandler = (arr, filter) => {
     switch (filter) {
       case "popular":
         return arr.filter(c => c.like)
@@ -64,31 +52,40 @@ class App extends Component {
         return arr
     }
   }
-  updateFilterHandler = (filter) => {
-    this.setState({filter})
+
+  const updateTermHandler = (term) => {
+    setTerm(term)
+  }
+
+  const updateFilterHandler = (filter) => {
+    setFilter(filter)
   }
 
 
-  render() {
-    const { data, term, filter } = this.state;
-    const allMovieCount = data.length;
-    const favouriteMovieCount = data.filter(e => e.favourite).length
-    const visibleDate = this.filterHandler(this.searchHandler(data, term), filter)
+  const allMovieCount = data.length;
+  const favouriteMovieCount = data.filter(e => e.favourite).length
+  const visibleDate = filterHandler(searchHandler(data, term), filter)
 
-    return (
-      <div className="app font-monospace">
-        <div className="content">
-          <AppInfo allMovieCount={allMovieCount} favouriteMovieCount={favouriteMovieCount} />
-          <div className="search-panel">
-            <SearchPanel updateTermHandler={this.updateTermHandler} />
-            <AppFilter filter={filter} updateFilterHandler={this.updateFilterHandler} />
-          </div>
-          <MovieList data={visibleDate} onDelete={this.onDelete} onToggleProp={this.onToggleProp} />
-          <MoviesAddForm addForm={this.addForm} />
+
+  return (
+    <div className="app font-monospace">
+      <div className="content">
+        <AppInfo allMovieCount={allMovieCount} favouriteMovieCount={favouriteMovieCount} />
+        <div className="search-panel">
+          <SearchPanel updateTermHandler={updateTermHandler} />
+          <AppFilter filter={filter} updateFilterHandler={updateFilterHandler} />
         </div>
+        <MovieList data={visibleDate} onDelete={onDelete} onToggleProp={onToggleProp} />
+        <MoviesAddForm addForm={addForm} />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default App;
+
+const dataList = [
+  { id: 1, name: "Empire of osman", viewers: 811, favourite: false, like: false },
+  { id: 2, name: "Ertugrul", viewers: 890, favourite: false, like: false },
+  { id: 3, name: "Omar", viewers: 999, favourite: false, like: false }
+]
