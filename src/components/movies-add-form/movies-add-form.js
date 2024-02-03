@@ -33,6 +33,7 @@ const MoviesAddForm = ({addForm}) => {
           name="name"
           placeholder="Qanday kino?"
           value={state.name}
+          autoComplete={"true"}
         />
         <input
           className="form-control new-post-label"

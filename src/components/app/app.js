@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 const App = () => {
   const [data, setData] = useState([]);
   const [term, setTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
   const [filter, setFilter] = useState("all");
 
   const onDelete = (id) => {
@@ -73,6 +74,7 @@ const App = () => {
   const visibleDate = filterHandler(searchHandler(data, term), filter);
 
   useEffect(() => {
+    setIsLoading(true)
     fetch("https://jsonplaceholder.typicode.com/todos?_start=0&_limit=5")
       .then((response) => response.json())
       .then((json) => {
@@ -85,7 +87,8 @@ const App = () => {
         }));
         setData(newArr)
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false))
   }, []);
 
   return (
@@ -102,6 +105,7 @@ const App = () => {
             updateFilterHandler={updateFilterHandler}
           />
         </div>
+        {isLoading && "Loading..."}
         <MovieList
           data={visibleDate}
           onDelete={onDelete}

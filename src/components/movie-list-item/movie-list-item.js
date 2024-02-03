@@ -10,7 +10,7 @@ const MovieListItem = (props) => {
   return (
     <li className={`list-group-item d-flex justify-content-between ${favourite && "favourite"} ${like && "like"}`}>
         <span className="list-group-item-label" onClick={onToggleProp} data-toggle="like" >{name}</span>
-        <input type="number" className="list-group-item-input" defaultValue={viewers} />
+        <input type="number" name={name} className="list-group-item-input" defaultValue={viewers} />
         <div className="d-flex justify-content-center align-items-center">
           <button className="btn-cookie btn-sm" onClick={onToggleProp} data-toggle="favourite" type="button" >
             <i className="fas fa-cookie"></i>

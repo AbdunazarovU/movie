@@ -15,6 +15,7 @@ const SearchPanel = (prop) => {
       className="form-control search-input"
       onChange={updateTermHandler}
       type="text"
+      name="search panel"
       placeholder="Kinolar qidirish"
       value={term}
     />
