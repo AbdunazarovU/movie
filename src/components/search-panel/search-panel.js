@@ -1,13 +1,16 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import "./search-panel.css"
+import { Context } from "../../context"
 
-const SearchPanel = (prop) => {
+const SearchPanel = () => {
   const [term, setTerm] = useState("")
+
+  const {_, dispatch} = useContext(Context)
 
   const updateTermHandler = e => {
     const term = e.target.value
     setTerm(term)
-    prop.updateTermHandler(term)
+    dispatch({ type: "ON_TERM", payload: term })
   }
 
   return (

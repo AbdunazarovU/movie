@@ -1,11 +1,23 @@
+import { useContext } from "react"
 import "./movie-list-item.css"
+import { Context } from "../../context"
 
 const MovieListItem = (props) => {
-  const { name, viewers, onDelete, onToggleProp, like, favourite } = props
-  // let className = "list-group-item d-flex justify-content-between"
-  // if(favourite) {
-  //   className += " favourite"
-  // }
+  const { name, viewers, like, favourite, id } = props
+
+  const {_, dispatch} = useContext(Context)
+
+  const onDelete = () => {
+    dispatch({type: "ON_DELETE", payload: id})
+  }
+
+  const onToggleProp = (e) => {
+    const payload = {
+      id,
+      prop: e.currentTarget.getAttribute("data-toggle")
+    }
+    dispatch({type: "ON_TOGGLE_PROP", payload})
+  }
 
   return (
     <li className={`list-group-item d-flex justify-content-between ${favourite && "favourite"} ${like && "like"}`}>
